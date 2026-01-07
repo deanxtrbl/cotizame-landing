@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   BASE
+========================= */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* =================================================
+   ANIMACIONES INICIALES (HERO)
+================================================= */
+
+/* Fade + slide up (hero textos) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+/* Drop suave (form container) */
+@keyframes dropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-drop-in {
+  animation: dropIn 0.8s ease-out both;
+}
+
+/* Fade soft interno */
+@keyframes fadeSoft {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-soft {
+  animation: fadeSoft 0.9s ease-out both;
+}
+
+/* =================================================
+   MICRO ANIMACIONES POR SCROLL (OBSERVER)
+================================================= */
+
+/* Fade + Up general */
+.fade-up {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+  will-change: opacity, transform;
+}
+
+.fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade suave (textos secundarios) */
+.fade-soft {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+}
+
+.fade-soft.is-visible {
+  opacity: 1;
+}
+
+/* Logo entrada ultra sutil (SCROLL SAFE iOS) */
+.animate-logo-soft {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+  will-change: opacity, transform;
+}
+
+.animate-logo-soft.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reveal card (formulario) */
+.reveal-card {
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+  will-change: opacity, transform;
+}
+
+.reveal-card.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* =================================================
+   ACCESIBILIDAD
+================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-drop-in,
+  .animate-fade-soft,
+  .fade-up,
+  .fade-soft,
+  .animate-logo-soft,
+  .reveal-card {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
