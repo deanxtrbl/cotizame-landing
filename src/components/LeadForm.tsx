@@ -102,12 +102,12 @@ Isapre actual: ${sanitize(form.isapre)}
 Quedo atento(a). Gracias.
 `.trim();
 
-    const telefonoEmpresa = "5696276886";
-    const url = `https://api.whatsapp.com/send?phone=${telefonoEmpresa}&text=${encodeURIComponent(
-      mensaje
-    )}`;
+   const telefonoEmpresa = "56936276886";
 
-    window.open(url, "_blank");
+const url = `https://wa.me/${telefonoEmpresa}?text=${encodeURIComponent(mensaje)}`;
+
+window.open(url, "_blank");
+
   };
 
   /* ================= JSX ================= */
