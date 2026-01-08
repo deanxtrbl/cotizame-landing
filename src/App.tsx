@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import LeadForm from "./components/LeadForm";
-import VitaPlanLogo from "./assets/vitaplan-banner.svg";
+
 
 // Logos Isapres
 import banmedica from "./assets/banmedica-logo-mobile.png";
 import consalud from "./assets/consalud.png";
 import colmena from "./assets/logo-colmena.svg";
 import cruzBlanca from "./assets/logo-main.svg";
+import esencial from "./assets/Logo-Clinica-Alemana.svg";
 import vidaTres from "./assets/vida-tres-logo-mobile.png";
 
 const isapres = [
@@ -14,7 +15,9 @@ const isapres = [
   { name: "Colmena", logo: colmena },
   { name: "Consalud", logo: consalud },
   { name: "Cruz Blanca", logo: cruzBlanca },
+  { name: "esencial", logo: esencial },
   { name: "Vida Tres", logo: vidaTres },
+  
 ];
 
 /* =========================
@@ -85,25 +88,47 @@ export default function App() {
     <div className="min-h-screen bg-[radial-gradient(1200px_600px_at_15%_-10%,#eef7fb,transparent)] px-6">
 
       {/* HERO */}
-      <section className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-16 lg:pt-20 pb-24 lg:pb-28">
+      <section className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-16 lg:pt-20 pb-24 lg:pb-28">
 
         {/* COLUMNA IZQUIERDA */}
+{/* Barra decorativa horizontal */}
+<div
+  aria-hidden
+  className="
+    absolute
+    top-[85px]
+    left-[160px]
+    w-[1080px]
+    h-[140px]
+    rounded-full
+    bg-sky-300/25
+    blur-[130px]
+    pointer-events-none
+    hidden lg:block
+  "
+/>
+
+
+
+
         <div className="self-start pb-6 sm:pb-0">
 
           {/* LOGO (SIN ANIMACIÓN - FIX iOS) */}
           <div className="flex flex-col items-start gap-3 min-h-[90px]">
-            <img
-              src={VitaPlanLogo}
-              alt="VitaPlan, asesoría profesional en Isapres"
-              className="w-36 sm:w-40 md:w-[260px]"
-              loading="eager"
-            />
+           <img
+  src="/vitaplan-banner.svg"
+  alt="VitaPlan, asesoría profesional en Isapres"
+  className="w-36 sm:w-40 md:w-[260px]"
+  loading="eager"
+  decoding="sync"
+/>
 
             <div className="mt-2 flex items-center gap-3 text-sm text-gray-500 fade-up">
               <span className="h-6 w-[3px] bg-sky-400 rounded-full"></span>
               <span>Nosotros comparamos. Tú decides.</span>
             </div>
           </div>
+          
 
           {/* TEXTO */}
           <div className="animate-fade-in">
@@ -159,31 +184,42 @@ export default function App() {
         </div>
       </section>
 
-      {/* ISAPRES */}
-      <section className="w-full bg-white border-t border-slate-200/70">
-        <div className="max-w-7xl mx-auto px-6 pt-10 pb-10 text-center">
-          <p className="text-xs font-semibold tracking-widest uppercase mb-8 text-gray-500">
-            Trabajamos con las principales Isapres de Chile
-          </p>
+{/* ISAPRES */}
+<section className="w-full bg-white border-t border-slate-200/70 overflow-x-hidden">
+  <div className="max-w-7xl mx-auto px-6 pt-10 pb-10 text-center">
+    <p className="text-xs font-semibold tracking-widest uppercase mb-8 text-gray-500">
+      Trabajamos con las principales Isapres de Chile
+    </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-10 items-center">
-            {isapres.map((item, index) => (
-              <div
-                key={item.name}
-                className="flex justify-center fade-up"
-                style={{ transitionDelay: `${index * 0.18}s` }}
-              >
-                <img
-                  src={item.logo}
-                  alt={`Logo ${item.name}`}
-                  className="h-10 md:h-12 object-contain"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
+    <div className="
+      grid
+      grid-cols-2
+      sm:grid-cols-3
+      md:grid-cols-6
+      gap-x-8
+      gap-y-8
+      items-center
+      justify-items-center
+    ">
+      {isapres.map((item, index) => (
+        <div
+          key={item.name}
+          className="flex justify-center fade-up"
+          style={{ transitionDelay: `${index * 0.15}s` }}
+        >
+          <img
+            src={item.logo}
+            alt={`Logo ${item.name}`}
+            className="h-10 sm:h-11 md:h-14 lg:h-16 max-w-[160px] w-auto object-contain"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* FOOTER */}
 <footer className="w-full bg-gray-50 border-t border-slate-200/70">
