@@ -267,7 +267,7 @@ window.open(url, "_blank");
           type="submit"
           className="mt-6 w-full rounded-lg bg-sky-500 py-3 font-semibold text-white hover:bg-sky-600 transition"
         >
-          Cotizar ahora
+          Cotiza ahora
         </button>
       </form>
 

@@ -132,18 +132,22 @@ export default function App() {
           {/* TEXTO */}
           <div className="animate-fade-in">
             <h1 className="mt-10 md:mt-14 text-2xl md:text-4xl font-extrabold leading-tight tracking-tight text-gray-900">
-              Elige tu plan de salud o Isapre <br />
-              <span className="text-sky-600">con asesoría profesional</span>
+              Encuentra tu plan de salud ideal <br />
+              <span className="text-sky-600">con asesoría profesional y sin costo</span>
             </h1>
 
             <p className="mt-4 text-sm md:text-base text-gray-500 max-w-xl">
-              Cotiza, compara y cambia tu Isapre en Chile con asesoría profesional y personalizada.
+              Cotiza, compara y cambia tu Isapre en Chile con asesoría clara y personalizada
             </p>
 
-            <p className="mt-6 text-lg text-gray-600 max-w-xl leading-relaxed hidden sm:block">
-              En VitaPlan te asesoramos de forma clara y personalizada para encontrar el
-              plan de salud o Isapre ideal para ti y tu familia en Chile.
-            </p>
+            <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-xl lg:max-w-2xl leading-relaxed hidden sm:block">
+  En VitaPlan te asesoramos de forma clara y personalizada,{" "}
+  <span className="font-medium text-gray-700">
+    comparando los mejores planes de salud e Isapre
+  </span>{" "}
+  del mercado para ti y tu familia en Chile.
+</p>
+
 
             <div className="mt-4">
               <p className="text-xs uppercase tracking-widest text-sky-600 font-semibold">
@@ -184,7 +188,8 @@ export default function App() {
       </section>
 
 {/* ISAPRES */}
-<section className="w-full bg-white border-t border-slate-200/70">
+<section className="w-full bg-white/70 backdrop-blur-sm border-t border-slate-200/60 -mt-12 + bg-white/60 + backdrop-blur-sm
+">
 
   {/* TEXTO CENTRADO */}
   <div className="max-w-7xl mx-auto px-6 pt-14">
@@ -216,7 +221,7 @@ export default function App() {
   alt={`Logo ${item.name}`}
   className={`
     w-auto shrink-0 object-contain transition
-    ${item.compact ? "h-9 lg:h-10 scale-95" : "h-10 lg:h-12"}
+    ${item.compact ? "h-8 lg:h-9 scale-95" : "h-9 lg:h-11"}
   `}
   loading="lazy"
   decoding="async"

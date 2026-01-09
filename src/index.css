@@ -13,6 +13,43 @@ body {
   background-color:#ffffff; /* color base de la página */
   overscroll-behavior: none;
 }
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-color: #ffffff;
+  overscroll-behavior: none;
+}
+
+/* ==============================
+   FIX DEFINITIVO SAFARI iOS
+   (safe-area / notch / bounce)
+============================== */
+
+html {
+  background-color: #ffffff;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  z-index: -1;
+}
+
+body::before {
+  top: 0;
+  height: env(safe-area-inset-top);
+}
+
+body::after {
+  bottom: 0;
+  height: env(safe-area-inset-bottom);
+}
 
 /* =================================================
    ANIMACIONES INICIALES (HERO)
