@@ -254,8 +254,9 @@ window.open(url, "_blank");
                 <option>Colmena</option>
                 <option>Consalud</option>
                 <option>CruzBlanca</option>
-                <option>Vida Tres</option>
                 <option>Esencial</option>
+                <option>Nueva Masvida</option>
+                <option>Vida Tres</option>
                 <option>Fonasa</option>
               </select>
             </div>

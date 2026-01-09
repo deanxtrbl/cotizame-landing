@@ -8,6 +8,7 @@ import consalud from "./assets/consalud.png";
 import colmena from "./assets/logo-colmena.svg";
 import cruzBlanca from "./assets/logo-main.svg";
 import esencial from "./assets/Logo-Clinica-Alemana.svg";
+import NuevaMasVida from "./assets/nueva-Mas-VidaLogo.png";
 import vidaTres from "./assets/vida-tres-logo-mobile.png";
 
 const isapres = [
@@ -16,7 +17,8 @@ const isapres = [
   { name: "Consalud", logo: consalud },
   { name: "Cruz Blanca", logo: cruzBlanca },
   { name: "esencial", logo: esencial },
-  { name: "Vida Tres", logo: vidaTres },
+  {name: "NuevaMasVida", logo: NuevaMasVida},
+  { name: "Vida Tres", logo: vidaTres, compact: true},
   
 ];
 
@@ -108,9 +110,6 @@ export default function App() {
   "
 />
 
-
-
-
         <div className="self-start pb-6 sm:pb-0">
 
           {/* LOGO (SIN ANIMACIÓN - FIX iOS) */}
@@ -186,21 +185,17 @@ export default function App() {
 
 {/* ISAPRES */}
 <section className="w-full bg-white border-t border-slate-200/70 overflow-x-hidden">
-  <div className="max-w-7xl mx-auto px-6 pt-10 pb-10 text-center">
-    <p className="text-xs font-semibold tracking-widest uppercase mb-8 text-gray-500">
+
+  {/* TEXTO CENTRADO */}
+  <div className="max-w-7xl mx-auto px-6 pt-14">
+    <p className="text-xs font-semibold tracking-widest uppercase mb-10 text-gray-500 text-center">
       Trabajamos con las principales Isapres de Chile
     </p>
+  </div>
 
-    <div className="
-      grid
-      grid-cols-2
-      sm:grid-cols-3
-      md:grid-cols-6
-      gap-x-8
-      gap-y-8
-      items-center
-      justify-items-center
-    ">
+  {/* LOGOS FULL WIDTH */}
+  <div className="w-full px-10 pb-20">
+    <div className="flex items-center justify-between gap-12 flex-nowrap">
       {isapres.map((item, index) => (
         <div
           key={item.name}
@@ -208,17 +203,23 @@ export default function App() {
           style={{ transitionDelay: `${index * 0.15}s` }}
         >
           <img
-            src={item.logo}
-            alt={`Logo ${item.name}`}
-            className="h-10 sm:h-11 md:h-14 lg:h-16 max-w-[160px] w-auto object-contain"
-            loading="lazy"
-            decoding="async"
-          />
+  src={item.logo}
+  alt={`Logo ${item.name}`}
+  className={`
+    w-auto shrink-0 object-contain transition
+    ${item.compact ? "h-9 lg:h-10 scale-95" : "h-10 lg:h-12"}
+  `}
+  loading="lazy"
+  decoding="async"
+/>
+
         </div>
       ))}
     </div>
   </div>
+
 </section>
+
 
 
       {/* FOOTER */}
