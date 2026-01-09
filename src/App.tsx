@@ -184,7 +184,7 @@ export default function App() {
       </section>
 
 {/* ISAPRES */}
-<section className="w-full bg-white border-t border-slate-200/70 overflow-x-hidden">
+<section className="w-full bg-white border-t border-slate-200/70">
 
   {/* TEXTO CENTRADO */}
   <div className="max-w-7xl mx-auto px-6 pt-14">
@@ -195,7 +195,16 @@ export default function App() {
 
   {/* LOGOS FULL WIDTH */}
   <div className="w-full px-10 pb-20">
-    <div className="flex items-center justify-between gap-12 flex-nowrap">
+    <div className="
+  flex
+  flex-wrap
+  md:flex-nowrap
+  items-center
+  justify-center
+  md:justify-between
+  gap-8
+  md:gap-12
+">
       {isapres.map((item, index) => (
         <div
           key={item.name}

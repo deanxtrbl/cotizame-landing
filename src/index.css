@@ -10,6 +10,8 @@ body {
   color: #0f172a;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  background-color: #eef7fb; /* color base de la página */
+  overscroll-behavior: none;
 }
 
 /* =================================================
