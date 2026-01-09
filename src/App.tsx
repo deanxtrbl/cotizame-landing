@@ -140,7 +140,7 @@ export default function App() {
               Cotiza, compara y cambia tu Isapre en Chile con asesoría clara y personalizada
             </p>
 
-            <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-xl lg:max-w-2xl leading-relaxed hidden sm:block">
+            <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-xl lg:max-w-2xl leading-relaxed">
   En VitaPlan te asesoramos de forma clara y personalizada,{" "}
   <span className="font-medium text-gray-700">
     comparando los mejores planes de salud e Isapre
