@@ -143,7 +143,7 @@ export default function App() {
             <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-xl lg:max-w-2xl leading-relaxed">
   En VitaPlan te asesoramos de forma clara y personalizada,{" "}
   <span className="font-medium text-gray-700">
-    comparando los mejores planes de salud e Isapre
+    comparando los mejores planes de salud de Isapres
   </span>{" "}
   del mercado para ti y tu familia en Chile.
 </p>
