@@ -260,7 +260,7 @@ export default function App() {
       <span className="text-gray-400">|</span>
 
  <a
-  href="https://api.whatsapp.com/send?phone=56936276886&text=Hola%20VitaPlan,%20quisiera%20recibir%20asesor%C3%ADa%20sobre%20planes%20de%20Isapre."
+  href="https://api.whatsapp.com/send?phone=56973322202&text=Hola%20VitaPlan,%20quisiera%20recibir%20asesor%C3%ADa%20sobre%20planes%20de%20Isapre."
   target="_blank"
   rel="noopener noreferrer"
   className="inline-flex items-center gap-1 text-sky-600 hover:underline"
