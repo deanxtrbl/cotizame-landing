@@ -102,7 +102,7 @@ Isapre actual: ${sanitize(form.isapre)}
 Quedo atento(a). Gracias.
 `.trim();
 
-   const telefonoEmpresa = "56936276886";
+   const telefonoEmpresa = "56973322202";
 
 const url = `https://wa.me/${telefonoEmpresa}?text=${encodeURIComponent(mensaje)}`;
 
