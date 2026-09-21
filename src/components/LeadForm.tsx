@@ -208,8 +208,30 @@ export default function LeadForm() {
   const focusCurrentField = () => {
     setIsapreOpen(false);
     setTimeout(() => {
-      inputRef.current?.focus();
-      inputRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      const el = inputRef.current;
+      if (!el) return;
+      el.focus();
+
+      let done = false;
+      const scrollToField = () => {
+        if (done) return;
+        done = true;
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      };
+
+      // En iOS Safari el teclado redimensiona el viewport de forma
+      // asíncrona; esperamos a que eso termine (evento "resize" de
+      // visualViewport) antes de centrar el campo. Si el navegador no
+      // soporta esa API, o el evento no llega, usamos un respaldo con
+      // tiempo fijo (funciona bien en Chrome/Android).
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", scrollToField, {
+          once: true,
+        });
+        setTimeout(scrollToField, 450);
+      } else {
+        scrollToField();
+      }
     }, 320);
   };
 
