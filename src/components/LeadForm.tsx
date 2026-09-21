@@ -170,6 +170,8 @@ export default function LeadForm() {
     telefono: "", // solo 8 dígitos (sin +56 9)
     email: "",
     renta: "",
+    edad: "",
+    numCargas: "0",
     cargas: "",
     isapre: "",
     website: "", // honeypot
@@ -238,60 +240,96 @@ export default function LeadForm() {
   }[] = [
     {
       name: "nombre",
-      label: "Nombre completo",
+      label: "¿Cuál es su nombre completo y edad?",
       icon: IconUser,
-      validate: () =>
-        form.nombre.trim().length < 2 ? "Ingresa tu nombre completo" : null,
+      validate: () => {
+        if (form.nombre.trim().length < 2) return "Ingresa tu nombre completo";
+        if (form.edad === "") return "Selecciona tu edad";
+        return null;
+      },
       render: () => (
-        <input
-          ref={inputRef}
-          name="nombre"
-          type="text"
-          maxLength={60}
-          onChange={(e) =>
-            setForm((prev) => ({ ...prev, nombre: e.target.value }))
-          }
-          value={form.nombre}
-          placeholder="Nombre completo"
-          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
-        />
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_110px]">
+          <div>
+            <span className="mb-1.5 block text-sm font-medium text-slate-500">
+              Nombre completo
+            </span>
+            <input
+              ref={inputRef}
+              name="nombre"
+              type="text"
+              maxLength={60}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, nombre: e.target.value }))
+              }
+              value={form.nombre}
+              placeholder="Nombre completo"
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
+            />
+          </div>
+          <div>
+            <span className="mb-1.5 block text-sm font-medium text-slate-500">
+              Edad
+            </span>
+            <input
+              name="edad"
+              type="number"
+              min={0}
+              max={110}
+              maxLength={3}
+              inputMode="numeric"
+              onChange={(e) => {
+                if (e.target.value.length > 3) return;
+                setForm((prev) => ({ ...prev, edad: e.target.value }));
+              }}
+              value={form.edad}
+              placeholder="Ej: 35"
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
+            />
+          </div>
+        </div>
       ),
     },
     {
       name: "telefono",
-      label: "Teléfono (WhatsApp)",
+      label: "¿Cuál es su número de celular?",
       icon: IconPhone,
       validate: () =>
         form.telefono.length !== 8
           ? "Ingresa tu número de WhatsApp (8 dígitos)"
           : null,
       render: () => (
-        <div className="flex items-stretch rounded-xl border border-slate-200 bg-white shadow-sm focus-within:border-sky-500 focus-within:ring-4 focus-within:ring-sky-100 transition">
-          <span className="flex items-center px-3 text-lg text-slate-500 bg-slate-50 border-r border-slate-200 rounded-l-xl">
-            +569
-          </span>
-          <input
-            ref={inputRef}
-            name="telefono"
-            type="tel"
-            maxLength={8}
-            inputMode="numeric"
-            onChange={(e) =>
-              setForm((prev) => ({
-                ...prev,
-                telefono: e.target.value.replace(/\D/g, ""),
-              }))
-            }
-            value={form.telefono}
-            placeholder="71064542"
-            className="w-full px-4 py-3 text-lg rounded-r-xl focus:outline-none"
-          />
-        </div>
+        <>
+          <div className="flex items-stretch rounded-xl border border-slate-200 bg-white shadow-sm focus-within:border-sky-500 focus-within:ring-4 focus-within:ring-sky-100 transition">
+            <span className="flex items-center px-3 text-lg text-slate-500 py-3.5 bg-slate-50 border-r border-slate-200 rounded-l-xl">
+              +569
+            </span>
+            <input
+              ref={inputRef}
+              name="telefono"
+              type="tel"
+              maxLength={8}
+              inputMode="numeric"
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+                  telefono: e.target.value.replace(/\D/g, ""),
+                }))
+              }
+              value={form.telefono}
+              placeholder="71064542"
+              className="w-full px-4 py-3.5 text-lg rounded-r-xl focus:outline-none"
+            />
+          </div>
+          <p className="mt-2 text-[12px] text-slate-400 leading-snug">
+            Por favor confírmenos su actual número de celular para poder
+            realizar una correcta asesoría.
+          </p>
+        </>
       ),
     },
     {
       name: "email",
-      label: "Correo electrónico",
+      label: "¿Cuál es su correo electrónico?",
       icon: IconMail,
       validate: () =>
         !isValidEmail(form.email) ? "Ingresa un correo válido" : null,
@@ -306,13 +344,13 @@ export default function LeadForm() {
           }
           value={form.email}
           placeholder="correo@ejemplo.cl"
-          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
+          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
         />
       ),
     },
     {
       name: "renta",
-      label: "Renta imponible",
+      label: "¿Cuál es su renta imponible?",
       icon: IconWallet,
       validate: () => (!form.renta ? "Ingresa tu renta imponible" : null),
       render: () => (
@@ -330,7 +368,7 @@ export default function LeadForm() {
             }}
             value={form.renta}
             placeholder="Monto en pesos"
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
           />
           <p className="mt-2 text-[12px] text-slate-400 leading-snug">
             Ingresa el monto sin puntos ni comas
@@ -340,25 +378,61 @@ export default function LeadForm() {
     },
     {
       name: "cargas",
-      label: "Número de cargas",
+      label: "¿Cuántas cargas tiene y qué edad tienen?",
       icon: IconUsers,
-      validate: () =>
-        form.cargas === "" ? "Ingresa la cantidad de cargas" : null,
+      validate: () => null,
       render: () => (
         <>
-          <input
-            ref={inputRef}
-            name="cargas"
-            type="number"
-            min={0}
-            inputMode="numeric"
-            onChange={(e) =>
-              setForm((prev) => ({ ...prev, cargas: e.target.value }))
-            }
-            value={form.cargas}
-            placeholder="Cantidad de cargas"
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
-          />
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-[110px_1fr]">
+            <div>
+              <span className="mb-1.5 block text-sm font-medium text-slate-500">
+                Cantidad
+              </span>
+              <select
+                ref={inputRef as unknown as React.RefObject<HTMLSelectElement>}
+                name="numCargas"
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, numCargas: e.target.value }))
+                }
+                value={form.numCargas}
+                className={`w-full rounded-xl border border-slate-200 bg-white px-2 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition ${
+                  form.numCargas
+                    ? "font-semibold text-slate-800"
+                    : "text-slate-400"
+                }`}
+              >
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5+">5+</option>
+              </select>
+            </div>
+            <div>
+              <span className="mb-1.5 block text-sm font-medium text-slate-500">
+                Edad de sus cargas
+              </span>
+              <input
+                name="cargas"
+                type="text"
+                inputMode="numeric"
+                maxLength={30}
+                disabled={form.numCargas === "0"}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    cargas: e.target.value.replace(/[^\d,\s]/g, ""),
+                  }))
+                }
+                value={form.numCargas === "0" ? "" : form.cargas}
+                placeholder={
+                  form.numCargas === "0" ? "No aplica" : "Ej: 40, 12"
+                }
+                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-100 disabled:bg-slate-50 disabled:text-slate-300"
+              />
+            </div>
+          </div>
           <p className="mt-2 text-xs text-slate-400">
             Incluye cónyuge e hijos, si corresponde
           </p>
@@ -367,7 +441,7 @@ export default function LeadForm() {
     },
     {
       name: "isapre",
-      label: "Isapre actual",
+      label: "¿En qué sistema de salud está hoy?",
       icon: IconBuilding,
       validate: () => (!form.isapre ? "Selecciona tu isapre actual" : null),
       render: () => {
@@ -377,7 +451,7 @@ export default function LeadForm() {
             <button
               type="button"
               onClick={() => setIsapreOpen((o) => !o)}
-              className="flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 text-left text-lg shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-100"
+              className="flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-left text-lg shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-100"
             >
               <span className="flex items-center gap-3">
                 {selected?.logo && (
@@ -410,7 +484,7 @@ export default function LeadForm() {
                       setForm((prev) => ({ ...prev, isapre: isapre.name }));
                       setIsapreOpen(false);
                     }}
-                    className={`flex w-full items-center gap-3 px-4 py-2.5 text-left text-[17px] font-semibold transition ${
+                    className={`flex w-full items-center gap-3 px-4 py-3 text-left text-lg font-semibold transition ${
                       form.isapre === isapre.name
                         ? "bg-sky-50 text-sky-700"
                         : "text-slate-700 hover:bg-slate-50"
@@ -494,7 +568,9 @@ Teléfono: ${telefonoCompleto}
 Email: ${sanitize(form.email)}
 
 Renta imponible: $${rentaNumero.toLocaleString("es-CL")}
-Cargas: ${sanitize(form.cargas)}
+Edad: ${sanitize(form.edad)} años
+Cantidad de cargas: ${form.numCargas}
+Edad de cargas: ${form.cargas ? sanitize(form.cargas) : "Sin cargas"}
 Isapre actual: ${sanitize(form.isapre)}
 
 Quedo atento(a). Gracias.
@@ -567,7 +643,7 @@ Quedo atento(a). Gracias.
         }`}
       >
         <div className="mb-4 flex items-center justify-between">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-sky-100 text-sky-600">
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-sky-100 text-sky-600">
             <current.icon />
           </div>
           <span className="text-sm font-medium tabular-nums text-slate-300">
@@ -577,7 +653,7 @@ Quedo atento(a). Gracias.
           </span>
         </div>
 
-        <label className="text-lg font-semibold text-gray-800">
+        <label className="text-xl font-semibold text-gray-800">
           {current.label} <span className="text-red-500">*</span>
         </label>
 
@@ -590,7 +666,7 @@ Quedo atento(a). Gracias.
             <button
               type="button"
               onClick={goBack}
-              className="flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-4 py-3 font-medium text-slate-600 hover:bg-slate-50 transition"
+              className="flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-5 py-3.5 text-lg font-medium text-slate-600 hover:bg-slate-50 transition"
             >
               <IconArrowLeft />
               Atrás
@@ -599,7 +675,7 @@ Quedo atento(a). Gracias.
           <button
             type="button"
             onClick={goNext}
-            className="flex-1 flex items-center justify-center gap-1 rounded-xl bg-sky-500 py-3 font-semibold text-white shadow-sm shadow-sky-200 hover:bg-sky-600 transition"
+            className="flex-1 flex items-center justify-center gap-1 rounded-xl bg-sky-500 py-3.5 text-lg font-semibold text-white shadow-sm shadow-sky-200 hover:bg-sky-600 transition"
           >
             {step === totalSteps - 1 ? "Cotiza ahora" : "Siguiente"}
             {step < totalSteps - 1 && <IconArrowRight />}
