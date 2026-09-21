@@ -201,12 +201,17 @@ export default function LeadForm() {
     setStartTime(Date.now());
   }, []);
 
-  useEffect(() => {
-    // Enfoca el input al entrar a cada paso (sirve también tras animar)
-    const t = setTimeout(() => inputRef.current?.focus(), 320);
+  // El foco automático se dispara desde goNext()/goBack() (ver más abajo),
+  // no reactivamente por un cambio de estado — así solo ocurre como
+  // consecuencia directa de que el usuario presionó un botón, nunca al
+  // cargar la página ni por ningún otro efecto secundario.
+  const focusCurrentField = () => {
     setIsapreOpen(false);
-    return () => clearTimeout(t);
-  }, [step]);
+    setTimeout(() => {
+      inputRef.current?.focus();
+      inputRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 320);
+  };
 
   /* ================= HELPERS ================= */
 
@@ -244,7 +249,7 @@ export default function LeadForm() {
       icon: IconUser,
       validate: () => {
         if (form.nombre.trim().length < 2) return "Ingresa tu nombre completo";
-        if (form.edad === "") return "Selecciona tu edad";
+        if (form.edad.trim() === "") return "Ingresa tu edad";
         return null;
       },
       render: () => (
@@ -272,17 +277,14 @@ export default function LeadForm() {
             </span>
             <input
               name="edad"
-              type="number"
-              min={0}
-              max={110}
-              maxLength={3}
-              inputMode="numeric"
+              type="text"
+              maxLength={15}
               onChange={(e) => {
-                if (e.target.value.length > 3) return;
+                if (e.target.value.length > 15) return;
                 setForm((prev) => ({ ...prev, edad: e.target.value }));
               }}
               value={form.edad}
-              placeholder="Ej: 35"
+              placeholder="Ej: 35 o 35 años"
               className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
             />
           </div>
@@ -416,18 +418,15 @@ export default function LeadForm() {
               <input
                 name="cargas"
                 type="text"
-                inputMode="numeric"
-                maxLength={30}
+                maxLength={60}
                 disabled={form.numCargas === "0"}
-                onChange={(e) =>
-                  setForm((prev) => ({
-                    ...prev,
-                    cargas: e.target.value.replace(/[^\d,\s]/g, ""),
-                  }))
-                }
+                onChange={(e) => {
+                  if (e.target.value.length > 60) return;
+                  setForm((prev) => ({ ...prev, cargas: e.target.value }));
+                }}
                 value={form.numCargas === "0" ? "" : form.cargas}
                 placeholder={
-                  form.numCargas === "0" ? "No aplica" : "Ej: 40, 12"
+                  form.numCargas === "0" ? "No aplica" : "Ej: 40 años, 12 años"
                 }
                 className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-100 disabled:bg-slate-50 disabled:text-slate-300"
               />
@@ -475,38 +474,41 @@ export default function LeadForm() {
             </button>
 
             {isapreOpen && (
-              <div className="absolute z-10 mt-2 max-h-64 w-full overflow-y-auto rounded-xl border border-slate-200 bg-white py-1.5 shadow-lg">
-                {isapresList.map((isapre) => (
-                  <button
-                    key={isapre.name}
-                    type="button"
-                    onClick={() => {
-                      setForm((prev) => ({ ...prev, isapre: isapre.name }));
-                      setIsapreOpen(false);
-                    }}
-                    className={`flex w-full items-center gap-3 px-4 py-3 text-left text-lg font-semibold transition ${
-                      form.isapre === isapre.name
-                        ? "bg-sky-50 text-sky-700"
-                        : "text-slate-700 hover:bg-slate-50"
-                    }`}
-                  >
-                    {isapre.logo ? (
-                      <img
-                        src={isapre.logo}
-                        alt=""
-                        className="h-9 w-9 shrink-0 object-contain"
-                      />
-                    ) : (
-                      <span className="h-9 w-9 shrink-0" />
-                    )}
-                    {isapre.name}
-                    {form.isapre === isapre.name && (
-                      <span className="ml-auto text-sky-500">
-                        <IconCheck />
-                      </span>
-                    )}
-                  </button>
-                ))}
+              <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
+                <div className="max-h-[248px] overflow-y-auto py-1.5">
+                  {isapresList.map((isapre) => (
+                    <button
+                      key={isapre.name}
+                      type="button"
+                      onClick={() => {
+                        setForm((prev) => ({ ...prev, isapre: isapre.name }));
+                        setIsapreOpen(false);
+                      }}
+                      className={`flex w-full items-center gap-3 px-4 py-3 text-left text-lg font-semibold transition ${
+                        form.isapre === isapre.name
+                          ? "bg-sky-50 text-sky-700"
+                          : "text-slate-700 hover:bg-slate-50"
+                      }`}
+                    >
+                      {isapre.logo ? (
+                        <img
+                          src={isapre.logo}
+                          alt=""
+                          className="h-9 w-9 shrink-0 object-contain"
+                        />
+                      ) : (
+                        <span className="h-9 w-9 shrink-0" />
+                      )}
+                      {isapre.name}
+                      {form.isapre === isapre.name && (
+                        <span className="ml-auto text-sky-500">
+                          <IconCheck />
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-white to-transparent" />
               </div>
             )}
           </div>
@@ -530,6 +532,7 @@ export default function LeadForm() {
     setDirection("forward");
     if (step < totalSteps - 1) {
       setStep((s) => s + 1);
+      focusCurrentField();
     } else {
       handleSubmit();
     }
@@ -538,7 +541,10 @@ export default function LeadForm() {
   const goBack = () => {
     setError(null);
     setDirection("back");
-    if (step > 0) setStep((s) => s - 1);
+    if (step > 0) {
+      setStep((s) => s - 1);
+      focusCurrentField();
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -568,7 +574,7 @@ Teléfono: ${telefonoCompleto}
 Email: ${sanitize(form.email)}
 
 Renta imponible: $${rentaNumero.toLocaleString("es-CL")}
-Edad: ${sanitize(form.edad)} años
+Edad: ${sanitize(form.edad)}
 Cantidad de cargas: ${form.numCargas}
 Edad de cargas: ${form.cargas ? sanitize(form.cargas) : "Sin cargas"}
 Isapre actual: ${sanitize(form.isapre)}
@@ -635,6 +641,12 @@ Quedo atento(a). Gracias.
       {/* TARJETA DE LA PREGUNTA ACTUAL */}
       <div
         onKeyDown={handleKeyDown}
+        onFocusCapture={(e) => {
+          const target = e.target as HTMLElement;
+          setTimeout(() => {
+            target.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 300);
+        }}
         key={current.name}
         className={`rounded-2xl border border-slate-100 bg-slate-50/70 p-6 sm:p-7 ${
           direction === "forward"
@@ -666,7 +678,7 @@ Quedo atento(a). Gracias.
             <button
               type="button"
               onClick={goBack}
-              className="flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-5 py-3.5 text-lg font-medium text-slate-600 hover:bg-slate-50 transition"
+              className="flex items-center gap-1 whitespace-nowrap rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-base sm:text-lg font-medium text-slate-600 hover:bg-slate-50 transition"
             >
               <IconArrowLeft />
               Atrás
@@ -675,7 +687,7 @@ Quedo atento(a). Gracias.
           <button
             type="button"
             onClick={goNext}
-            className="flex-1 flex items-center justify-center gap-1 rounded-xl bg-sky-500 py-3.5 text-lg font-semibold text-white shadow-sm shadow-sky-200 hover:bg-sky-600 transition"
+            className="flex-1 flex items-center justify-center gap-1 whitespace-nowrap rounded-xl bg-sky-500 px-3 py-3.5 text-base sm:text-lg font-semibold text-white shadow-sm shadow-sky-200 hover:bg-sky-600 transition"
           >
             {step === totalSteps - 1 ? "Cotiza ahora" : "Siguiente"}
             {step < totalSteps - 1 && <IconArrowRight />}
