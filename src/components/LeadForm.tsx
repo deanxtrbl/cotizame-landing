@@ -275,42 +275,47 @@ export default function LeadForm() {
         return null;
       },
       render: () => (
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_110px]">
-          <div>
-            <span className="mb-1.5 block text-sm font-medium text-slate-500">
-              Nombre completo
-            </span>
-            <input
-              ref={inputRef}
-              name="nombre"
-              type="text"
-              maxLength={60}
-              onChange={(e) =>
-                setForm((prev) => ({ ...prev, nombre: e.target.value }))
-              }
-              value={form.nombre}
-              placeholder="Nombre completo"
-              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
-            />
+        <>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_110px]">
+            <div>
+              <span className="mb-1.5 block text-sm font-medium text-slate-500">
+                Nombre completo
+              </span>
+              <input
+                ref={inputRef}
+                name="nombre"
+                type="text"
+                maxLength={60}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, nombre: e.target.value }))
+                }
+                value={form.nombre}
+                placeholder="Nombre completo"
+                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
+              />
+            </div>
+            <div>
+              <span className="mb-1.5 block text-sm font-medium text-slate-500">
+                Edad
+              </span>
+              <input
+                name="edad"
+                type="text"
+                maxLength={15}
+                onChange={(e) => {
+                  if (e.target.value.length > 15) return;
+                  setForm((prev) => ({ ...prev, edad: e.target.value }));
+                }}
+                value={form.edad}
+                placeholder="Ej: 35"
+                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
+              />
+            </div>
           </div>
-          <div>
-            <span className="mb-1.5 block text-sm font-medium text-slate-500">
-              Edad
-            </span>
-            <input
-              name="edad"
-              type="text"
-              maxLength={15}
-              onChange={(e) => {
-                if (e.target.value.length > 15) return;
-                setForm((prev) => ({ ...prev, edad: e.target.value }));
-              }}
-              value={form.edad}
-              placeholder="Ej: 35 o 35 años"
-              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
-            />
-          </div>
-        </div>
+          <p className="mt-2 text-xs text-slate-400">
+            Puede escribir solo el número o agregar "años"
+          </p>
+        </>
       ),
     },
     {
