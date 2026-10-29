@@ -267,7 +267,7 @@ export default function LeadForm() {
   }[] = [
     {
       name: "nombre",
-      label: "¿Cuál es su nombre completo y edad?",
+      label: "¿Cuál es tu nombre completo y edad?",
       icon: IconUser,
       validate: () => {
         if (form.nombre.trim().length < 2) return "Ingresa tu nombre completo";
@@ -278,7 +278,7 @@ export default function LeadForm() {
         <>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_110px]">
             <div>
-              <span className="mb-1.5 block text-sm font-medium text-slate-500">
+              <span className="mb-1.5 block text-sm font-medium text-slate-600">
                 Nombre completo
               </span>
               <input
@@ -291,11 +291,11 @@ export default function LeadForm() {
                 }
                 value={form.nombre}
                 placeholder="Nombre completo"
-                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
               />
             </div>
             <div>
-              <span className="mb-1.5 block text-sm font-medium text-slate-500">
+              <span className="mb-1.5 block text-sm font-medium text-slate-600">
                 Edad
               </span>
               <input
@@ -308,19 +308,19 @@ export default function LeadForm() {
                 }}
                 value={form.edad}
                 placeholder="Ej: 35"
-                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
               />
             </div>
           </div>
-          <p className="mt-2 text-xs text-slate-400">
-            Puede escribir solo el número o agregar "años"
+          <p className="mt-2 text-xs text-slate-500">
+            Puedes escribir solo el número o agregar "años"
           </p>
         </>
       ),
     },
     {
       name: "telefono",
-      label: "¿Cuál es su número de celular?",
+      label: "¿Cuál es tu número de celular?",
       icon: IconPhone,
       validate: () =>
         form.telefono.length !== 8
@@ -328,8 +328,8 @@ export default function LeadForm() {
           : null,
       render: () => (
         <>
-          <div className="flex items-stretch rounded-xl border border-slate-200 bg-white shadow-sm focus-within:border-sky-500 focus-within:ring-4 focus-within:ring-sky-100 transition">
-            <span className="flex items-center px-3 text-lg text-slate-500 py-3.5 bg-slate-50 border-r border-slate-200 rounded-l-xl">
+          <div className="flex items-stretch rounded-xl border border-slate-300 bg-white shadow-sm focus-within:border-sky-500 focus-within:ring-4 focus-within:ring-sky-100 transition">
+            <span className="flex items-center px-3 text-lg text-slate-500 py-3.5 bg-slate-50 border-r border-slate-300 rounded-l-xl">
               +569
             </span>
             <input
@@ -349,16 +349,16 @@ export default function LeadForm() {
               className="w-full px-4 py-3.5 text-lg rounded-r-xl focus:outline-none"
             />
           </div>
-          <p className="mt-2 text-[12px] text-slate-400 leading-snug">
-            Por favor confírmenos su actual número de celular para poder
-            realizar una correcta asesoría.
+          <p className="mt-2 text-[12px] text-slate-500 leading-snug">
+            Confírmanos tu número actual de celular para poder realizar una
+            correcta asesoría.
           </p>
         </>
       ),
     },
     {
       name: "email",
-      label: "¿Cuál es su correo electrónico?",
+      label: "¿Cuál es tu correo electrónico?",
       icon: IconMail,
       validate: () =>
         !isValidEmail(form.email) ? "Ingresa un correo válido" : null,
@@ -373,13 +373,13 @@ export default function LeadForm() {
           }
           value={form.email}
           placeholder="correo@ejemplo.cl"
-          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
+          className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
         />
       ),
     },
     {
       name: "renta",
-      label: "¿Cuál es su renta imponible?",
+      label: "¿Cuál es tu renta imponible?",
       icon: IconWallet,
       validate: () => (!form.renta ? "Ingresa tu renta imponible" : null),
       render: () => (
@@ -397,9 +397,9 @@ export default function LeadForm() {
             }}
             value={form.renta}
             placeholder="Monto en pesos"
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
+            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition"
           />
-          <p className="mt-2 text-[12px] text-slate-400 leading-snug">
+          <p className="mt-2 text-[12px] text-slate-500 leading-snug">
             Ingresa el monto sin puntos ni comas
           </p>
         </>
@@ -407,14 +407,14 @@ export default function LeadForm() {
     },
     {
       name: "cargas",
-      label: "¿Cuántas cargas tiene y qué edad tienen?",
+      label: "¿Cuántas cargas tienes y qué edad tienen?",
       icon: IconUsers,
       validate: () => null,
       render: () => (
         <>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-[110px_1fr]">
             <div>
-              <span className="mb-1.5 block text-sm font-medium text-slate-500">
+              <span className="mb-1.5 block text-sm font-medium text-slate-600">
                 Cantidad
               </span>
               <select
@@ -424,7 +424,7 @@ export default function LeadForm() {
                   setForm((prev) => ({ ...prev, numCargas: e.target.value }))
                 }
                 value={form.numCargas}
-                className={`w-full rounded-xl border border-slate-200 bg-white px-2 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition ${
+                className={`w-full rounded-xl border border-slate-300 bg-white px-2 py-3.5 text-lg shadow-sm focus:border-sky-500 focus:ring-4 focus:ring-sky-100 focus:outline-none transition ${
                   form.numCargas
                     ? "font-semibold text-slate-800"
                     : "text-slate-400"
@@ -439,8 +439,8 @@ export default function LeadForm() {
               </select>
             </div>
             <div>
-              <span className="mb-1.5 block text-sm font-medium text-slate-500">
-                Edad de sus cargas
+              <span className="mb-1.5 block text-sm font-medium text-slate-600">
+                Edad de tus cargas
               </span>
               <input
                 name="cargas"
@@ -455,11 +455,11 @@ export default function LeadForm() {
                 placeholder={
                   form.numCargas === "0" ? "No aplica" : "Ej: 40 años, 12 años"
                 }
-                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-lg shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-100 disabled:bg-slate-50 disabled:text-slate-300"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-lg shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-100 disabled:bg-slate-50 disabled:text-slate-400"
               />
             </div>
           </div>
-          <p className="mt-2 text-xs text-slate-400">
+          <p className="mt-2 text-xs text-slate-500">
             Incluye cónyuge e hijos, si corresponde
           </p>
         </>
@@ -467,7 +467,7 @@ export default function LeadForm() {
     },
     {
       name: "isapre",
-      label: "¿En qué sistema de salud está hoy?",
+      label: "¿En qué sistema de salud estás hoy?",
       icon: IconBuilding,
       validate: () => (!form.isapre ? "Selecciona tu isapre actual" : null),
       render: () => {
@@ -477,7 +477,7 @@ export default function LeadForm() {
             <button
               type="button"
               onClick={() => setIsapreOpen((o) => !o)}
-              className="flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-left text-lg shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-100"
+              className="flex w-full items-center justify-between rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-left text-lg shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-100"
             >
               <span className="flex items-center gap-3">
                 {selected?.logo && (
@@ -491,7 +491,7 @@ export default function LeadForm() {
                   className={
                     form.isapre
                       ? "font-semibold text-slate-800"
-                      : "text-slate-400"
+                      : "text-slate-500"
                   }
                 >
                   {form.isapre || "Selecciona tu isapre"}
@@ -593,7 +593,7 @@ export default function LeadForm() {
     const telefonoCompleto = `+569${form.telefono}`;
 
     const mensaje = `
-Hola , ${saludo} 👋
+Hola, ${saludo} 👋
 Quisiera cotizar un plan de Isapre y recibir asesoría.
 
 Nombre: ${sanitize(form.nombre)}
@@ -623,13 +623,13 @@ Quedo atento(a). Gracias.
   if (submitted) {
     return (
       <div className="text-center py-10 space-y-3 animate-fade-in">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-emerald-500">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-teal-50 text-teal-600">
           <IconCheck />
         </div>
-        <p className="text-lg font-semibold text-gray-800">
+        <p className="text-base font-semibold text-vita-navy">
           ¡Listo, {sanitize(form.nombre).split(" ")[0]}!
         </p>
-        <p className="text-sm text-gray-500 max-w-xs mx-auto">
+        <p className="text-sm text-slate-600 max-w-xs mx-auto">
           Te abrimos WhatsApp para que confirmes tu mensaje. Si no se abrió,
           revisa que tu navegador no lo haya bloqueado.
         </p>
@@ -654,12 +654,12 @@ Quedo atento(a). Gracias.
 
       {/* BARRA DE PROGRESO */}
       <div className="mb-6">
-        <span className="mb-2 block text-xs font-medium text-slate-400">
+        <span className="mb-2 block text-xs font-semibold text-slate-500">
           Paso {step + 1} de {totalSteps}
         </span>
-        <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+        <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-sky-400 via-sky-500 to-emerald-400 transition-all duration-500 ease-out"
+            className="h-full rounded-full bg-gradient-to-r from-sky-500 to-teal-500 transition-all duration-500 ease-out"
             style={{ width: `${((step + 1) / totalSteps) * 100}%` }}
           />
         </div>
@@ -675,37 +675,30 @@ Quedo atento(a). Gracias.
           }, 300);
         }}
         key={current.name}
-        className={`rounded-2xl border border-slate-100 bg-slate-50/70 p-6 sm:p-7 ${
+        className={`${
           direction === "forward"
             ? "animate-slide-in-right"
             : "animate-slide-in-left"
         }`}
       >
-        <div className="mb-4 flex items-center justify-between">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-sky-100 text-sky-600">
-            <current.icon />
-          </div>
-          <span className="text-sm font-medium tabular-nums text-slate-300">
-            {String(step + 1).padStart(2, "0")}
-            <span className="mx-1 text-slate-200">/</span>
-            {String(totalSteps).padStart(2, "0")}
-          </span>
-        </div>
-
-        <label className="text-xl font-semibold text-gray-800">
-          {current.label} <span className="text-red-500">*</span>
+        <label className="block text-xl font-semibold text-vita-navy">
+          {current.label}
         </label>
 
         <div className="mt-3">{current.render()}</div>
 
-        {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
+        {error && (
+          <p className="mt-2 text-sm font-medium text-red-600" role="alert">
+            {error}
+          </p>
+        )}
 
         <div className="mt-6 flex gap-3">
           {step > 0 && (
             <button
               type="button"
               onClick={goBack}
-              className="flex items-center gap-1 whitespace-nowrap rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-base sm:text-lg font-medium text-slate-600 hover:bg-slate-50 transition"
+              className="flex items-center gap-1 whitespace-nowrap rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-base sm:text-lg font-medium text-slate-600 hover:bg-slate-50 transition"
             >
               <IconArrowLeft />
               Atrás
@@ -722,9 +715,8 @@ Quedo atento(a). Gracias.
         </div>
       </div>
 
-      <p className="mt-4 text-xs text-gray-400 text-center">
-        <span className="text-red-400">*</span> Todos los campos son
-        obligatorios. Tus datos son confidenciales.
+      <p className="mt-4 text-xs text-slate-500 text-center">
+        Todos los campos son obligatorios. Tus datos son confidenciales.
       </p>
     </>
   );

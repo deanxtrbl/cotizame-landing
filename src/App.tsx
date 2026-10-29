@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, type CSSProperties } from "react";
 import LeadForm from "./components/LeadForm";
 
+// Foto del asesor
+import asesorRodrigo from "./assets/asesor-rodrigo.jpg";
 
 // Logos Isapres
 import banmedica from "./assets/banmedica-logo-mobile.png";
@@ -16,10 +18,38 @@ const isapres = [
   { name: "Colmena", logo: colmena },
   { name: "Consalud", logo: consalud },
   { name: "Cruz Blanca", logo: cruzBlanca },
-  { name: "esencial", logo: esencial },
-  {name: "NuevaMasVida", logo: NuevaMasVida},
-  { name: "Vida Tres", logo: vidaTres, compact: true},
-  
+  { name: "Esencial", logo: esencial },
+  { name: "Nueva MasVida", logo: NuevaMasVida },
+  { name: "Vida Tres", logo: vidaTres, compact: true },
+];
+
+/* =========================
+   ASESOR (bloque de confianza)
+   Para cambiar o agregar datos, edita solo este objeto.
+========================= */
+const ASESOR = {
+  nombre: "Rodrigo",
+  rol: "Asesor VitaPlan",
+  frase: "Te acompaño desde la cotización hasta el cambio de plan.",
+  foto: asesorRodrigo,
+};
+
+/* =========================
+   CÓMO FUNCIONA
+========================= */
+const PASOS = [
+  {
+    titulo: "Cuéntanos tu caso",
+    texto: "Responde unas preguntas simples sobre ti y tu familia.",
+  },
+  {
+    titulo: "Comparamos por ti",
+    texto: "Buscamos los mejores planes según tu perfil y presupuesto.",
+  },
+  {
+    titulo: "Te acompañamos",
+    texto: "Tú decides, y te guiamos en cada paso del cambio.",
+  },
 ];
 
 /* =========================
@@ -30,38 +60,28 @@ const WHATSAPP_URL =
 const INSTAGRAM_URL = "https://www.instagram.com/vitaplan.cl/";
 
 /* =========================
-   ICONOS PREMIUM (INLINE)
+   ICONOS (INLINE)
 ========================= */
-const IconCheck = () => (
-  <svg className="w-5 h-5 text-sky-600" viewBox="0 0 24 24" fill="none">
-    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8" />
-    <path d="M8 12.5l2.5 2.5L16 9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const IconUser = () => (
-  <svg className="w-5 h-5 text-sky-600" viewBox="0 0 24 24" fill="none">
-    <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.8" />
-    <path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-  </svg>
-);
-
-const IconInfo = () => (
-  <svg className="w-5 h-5 text-sky-600" viewBox="0 0 24 24" fill="none">
-    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8" />
-    <path d="M12 11v5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-    <circle cx="12" cy="7.5" r="1" fill="currentColor" />
-  </svg>
-);
-
-const IconShield = () => (
-  <svg className="w-5 h-5 text-sky-600" viewBox="0 0 24 24" fill="none">
-    <path d="M12 3l7 4v5c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V7l7-4z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+const IconCheckFilled = () => (
+  <svg
+    className="h-5 w-5 shrink-0 text-vita-teal"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="11" fill="currentColor" />
+    <path
+      d="M7 12.5l3.2 3.2L17 9"
+      fill="none"
+      stroke="#fff"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
 const IconWhatsApp = ({
-  className = "w-4 h-4 inline-block mr-1 text-sky-600",
+  className = "w-4 h-4 inline-block mr-1",
 }: {
   className?: string;
 }) => (
@@ -76,7 +96,7 @@ const IconWhatsApp = ({
 );
 
 const IconInstagram = ({
-  className = "w-4 h-4 inline-block mr-1 text-sky-600",
+  className = "w-4 h-4 inline-block mr-1",
 }: {
   className?: string;
 }) => (
@@ -90,7 +110,7 @@ const IconInstagram = ({
 export default function App() {
   useEffect(() => {
     const elements = document.querySelectorAll(
-      ".fade-up, .fade-soft, .reveal-card"
+      ".fade-up, .fade-soft, .reveal-card, .reveal-stagger"
     );
 
     const observer = new IntersectionObserver(
@@ -110,208 +130,236 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(1200px_600px_at_15%_-10%,#eef7fb,transparent)] px-6">
+    <div className="min-h-screen bg-white text-vita-navy">
 
       {/* HERO */}
-      <section className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-16 lg:pt-20 pb-24 lg:pb-28">
+      <div className="bg-[radial-gradient(1200px_600px_at_15%_-10%,#e6f4fc,transparent)] px-6">
+        <section className="relative mx-auto grid max-w-7xl grid-cols-1 items-start gap-8 pb-16 pt-10 sm:pt-14 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-8 lg:pb-24 lg:pt-20">
 
-        {/* COLUMNA IZQUIERDA */}
-{/* Barra decorativa horizontal */}
-<div
-  aria-hidden
-  className="
-    absolute
-    top-[85px]
-    left-[160px]
-    w-[1080px]
-    h-[140px]
-    rounded-full
-    bg-sky-300/25
-    blur-[130px]
-    pointer-events-none
-    hidden lg:block
-  "
-/>
+          {/* Barra decorativa horizontal */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-[160px] top-[85px] hidden h-[140px] w-[1080px] rounded-full bg-sky-300/25 blur-[130px] lg:block"
+          />
 
-        <div className="self-start pb-6 sm:pb-0">
+          {/* A: LOGO, TITULAR Y BENEFICIOS */}
+          <div className="lg:col-start-1 lg:row-start-1">
 
-          {/* LOGO (SIN ANIMACIÓN - FIX iOS) */}
-          <div className="flex flex-col items-start gap-3 min-h-[90px]">
-           <img
-  src="/vitaplan-banner.svg"
-  alt="VitaPlan, asesoría profesional en Isapres"
-  className="w-36 sm:w-40 md:w-[260px]"
-  loading="eager"
-  decoding="sync"
-/>
+            {/* LOGO (SIN ANIMACIÓN - FIX iOS) */}
+            <div className="flex min-h-[72px] flex-col items-start gap-3">
+              <img
+                src="/vitaplan-banner.svg"
+                alt="VitaPlan, asesoría profesional en Isapres"
+                width={529}
+                height={96}
+                className="h-10 w-auto sm:h-12 md:h-14"
+                loading="eager"
+                decoding="sync"
+              />
+              <div className="fade-up flex items-center gap-3 text-sm font-medium text-vita-ink md:text-base">
+                <span aria-hidden="true" className="h-6 w-[3px] rounded-full bg-vita-blue"></span>
+                <span>Nosotros comparamos, Tú decides.</span>
+              </div>
+            </div>
 
-            <div className="mt-2 flex items-center gap-3 text-sm text-gray-500 fade-up">
-              <span className="h-6 w-[3px] bg-sky-400 rounded-full"></span>
-              <span>Nosotros comparamos. Tú decides.</span>
+            {/* TEXTO */}
+            <div className="animate-fade-in">
+              <h1 className="mt-8 text-[26px] font-extrabold leading-[1.15] tracking-tight text-vita-navy sm:text-[30px] md:mt-10 md:text-[34px] lg:text-[30px] xl:text-[34px]">
+                Encuentra tu plan de salud ideal{" "}
+                <br className="hidden md:block lg:hidden xl:block" />
+                <span className="text-vita-blueDark">
+                  con asesoría profesional y sin costo
+                </span>
+              </h1>
+
+              {/* Subtítulo suave */}
+              <p className="mt-4 max-w-xl text-sm text-slate-500 md:text-base">
+                Cotiza, compara y cambia tu Isapre en Chile con asesoría clara y
+                personalizada
+              </p>
+
+              {/* Mensaje principal (en celular se oculta para no cargar la pantalla) */}
+              <p className="mt-5 hidden max-w-xl text-lg font-medium leading-relaxed text-slate-700 sm:block md:text-[21px] md:leading-[1.55] lg:max-w-2xl">
+                En VitaPlan te asesoramos de forma clara y personalizada,{" "}
+                <span className="font-bold text-vita-navy">
+                  comparando los mejores planes de salud de Isapres
+                </span>{" "}
+                del mercado para ti y tu familia en Chile.
+              </p>
+
+              {/* BENEFICIOS */}
+              <div className="mt-6 grid grid-cols-1 gap-x-4 gap-y-3 text-sm font-medium text-vita-navy sm:grid-cols-2">
+                <div className="fade-up flex items-center gap-3"><IconCheckFilled />Asesoría 100% gratuita</div>
+                <div className="fade-up flex items-center gap-3"><IconCheckFilled />Sin compromiso</div>
+                <div className="fade-up hidden items-center gap-3 sm:flex"><IconCheckFilled />Acompañamiento personalizado</div>
+                <div className="fade-up hidden items-center gap-3 sm:flex"><IconCheckFilled />Información clara</div>
+              </div>
             </div>
           </div>
-          
 
-          {/* TEXTO */}
-          <div className="animate-fade-in">
-            <h1 className="mt-10 md:mt-14 text-2xl md:text-4xl font-extrabold leading-tight tracking-tight text-gray-900">
-              Encuentra tu plan de salud ideal <br />
-              <span className="text-sky-600">con asesoría profesional y sin costo</span>
-            </h1>
-
-            <p className="mt-4 text-sm md:text-base text-gray-500 max-w-xl">
-              Cotiza, compara y cambia tu Isapre en Chile con asesoría clara y personalizada
-            </p>
-
-            <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-xl lg:max-w-2xl leading-relaxed">
-  En VitaPlan te asesoramos de forma clara y personalizada,{" "}
-  <span className="font-medium text-gray-700">
-    comparando los mejores planes de salud de Isapres
-  </span>{" "}
-  del mercado para ti y tu familia en Chile.
-</p>
-
-
-            <div className="mt-4">
-              <p className="text-xs uppercase tracking-widest text-sky-600 font-semibold">
-                Trayectoria comprobada
+          {/* B: FORMULARIO */}
+          <div className="flex justify-center animate-drop-in lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:justify-end lg:self-center">
+            <div className="reveal-card w-full max-w-xl rounded-3xl border border-slate-200/70 bg-white p-8 shadow-[0_30px_80px_rgba(15,42,67,0.14)] sm:p-10">
+              <h2 className="text-center text-2xl font-bold text-vita-navy">
+                Cotiza tu plan de Isapre
+              </h2>
+              <p className="mb-8 mt-2 text-center text-vita-ink">
+                Asesoría gratuita, rápida y sin compromiso
               </p>
-              <p className="text-sm md:text-base font-semibold text-gray-900">
-                +30 años de experiencia en asesoría de Isapres
-              </p>
-            </div>
 
-            {/* BENEFICIOS */}
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 font-medium">
-              <div className="flex items-center gap-3 fade-up"><IconCheck />Asesoría 100% gratuita</div>
-              <div className="flex items-center gap-3 fade-up"><IconShield />Sin compromiso</div>
-              <div className="hidden sm:flex items-center gap-3 fade-up"><IconUser />Acompañamiento personalizado</div>
-              <div className="hidden sm:flex items-center gap-3 fade-up"><IconInfo />Información clara</div>
+              <LeadForm />
             </div>
           </div>
-        </div>
 
-        {/* FORM */}
-        <div className="flex justify-center lg:justify-end animate-drop-in">
-          <div className="w-full max-w-lg bg-white rounded-3xl border border-slate-200/70 shadow-[0_30px_80px_rgba(0,0,0,0.14)] p-10 reveal-card">
-            <h2 className="text-2xl font-bold text-gray-900 text-center">
-              Cotiza tu plan de Isapre
-            </h2>
-            <p className="text-center text-gray-500 mt-2 mb-8">
-              Recibe asesoría gratuita, rápida y sin compromiso
+          {/* C: CIFRAS Y ASESOR (en celular quedan bajo el formulario) */}
+          <div className="lg:col-start-1 lg:row-start-2">
+            <p className="mb-2 text-[10.5px] font-semibold uppercase tracking-widest text-vita-blueDark">
+              Trayectoria comprobada
             </p>
+            <div className="flex flex-wrap gap-x-8 gap-y-3 sm:grid sm:grid-cols-2 sm:gap-x-4">
+              <div>
+                <p className="text-2xl font-bold text-vita-blueDark">+30 años</p>
+                <p className="text-[13px] text-vita-ink">de experiencia en asesoría de Isapres</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-vita-blueDark">+5.000</p>
+                <p className="text-[13px] text-vita-ink">personas asesoradas en Chile</p>
+              </div>
+            </div>
 
-            <LeadForm />
+            <div className="mt-5 flex max-w-xl items-center gap-3 rounded-2xl border border-vita-line bg-white px-3.5 py-2.5">
+              <img
+                src={ASESOR.foto}
+                alt={`${ASESOR.nombre}, ${ASESOR.rol}`}
+                width={48}
+                height={48}
+                className="h-12 w-12 shrink-0 rounded-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+              <div className="min-w-0">
+                <p className="text-[13px] font-bold text-vita-navy">
+                  {ASESOR.nombre}
+                  <span className="font-medium text-vita-ink"> – {ASESOR.rol}</span>
+                </p>
+                <p className="mt-0.5 hidden text-xs leading-snug text-vita-ink sm:block">
+                  “{ASESOR.frase}”
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
 
-            <p className="mt-4 text-sm text-gray-500 text-center">
-              Más de <span className="font-semibold text-gray-700">5.000 personas</span> asesoradas en todo Chile
-            </p>
+      {/* ISAPRES */}
+      <section className="w-full bg-vita-mist py-14 md:py-16">
+        <div className="mx-auto max-w-[1480px] px-6 text-center xl:px-10">
+          <p className="mb-8 text-xs font-semibold uppercase tracking-widest text-vita-ink">
+            Trabajamos con las principales Isapres de Chile
+          </p>
+
+          {/* Una sola línea en pantallas grandes (xl); en celular y tablet se acomodan en filas */}
+          <div className="reveal-stagger flex flex-wrap justify-center gap-3 xl:flex-nowrap">
+            {isapres.map((item, index) => (
+              <div
+                key={item.name}
+                className="reveal-item flex h-24 w-[calc(50%-0.375rem)] items-center justify-center rounded-2xl border border-vita-line bg-white px-3 sm:w-[170px] xl:w-auto xl:min-w-0 xl:flex-1"
+                style={{ "--i": index } as CSSProperties}
+              >
+                <img
+                  src={item.logo}
+                  alt={`Logo ${item.name}`}
+                  className={`w-auto max-w-full object-contain ${
+                    item.compact ? "h-9 xl:h-10" : "h-10 xl:h-11"
+                  }`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-{/* ISAPRES */}
-<section className="w-full bg-white/70 backdrop-blur-sm border-t border-slate-200/60 -mt-12">
+      {/* CÓMO FUNCIONA */}
+      <section className="bg-white px-6 py-16 md:py-20">
+        <div className="mx-auto max-w-5xl text-center">
+          <h2 className="text-3xl font-extrabold tracking-tight text-vita-navy">
+            Cómo funciona
+          </h2>
 
-  {/* TEXTO CENTRADO */}
-  <div className="max-w-7xl mx-auto px-6 pt-14">
-    <p className="text-xs font-semibold tracking-widest uppercase mb-10 text-gray-500 text-center">
-      Trabajamos con las principales Isapres de Chile
-    </p>
-  </div>
-
-  {/* LOGOS FULL WIDTH */}
-  <div className="w-full px-10 pb-20">
-    <div className="
-  flex
-  flex-wrap
-  md:flex-nowrap
-  items-center
-  justify-center
-  md:justify-between
-  gap-8
-  md:gap-12
-">
-      {isapres.map((item, index) => (
-        <div
-          key={item.name}
-          className="flex justify-center fade-up"
-          style={{ transitionDelay: `${index * 0.15}s` }}
-        >
-          <img
-  src={item.logo}
-  alt={`Logo ${item.name}`}
-  className={`
-    w-auto shrink-0 object-contain transition
-    ${item.compact ? "h-8 lg:h-9 scale-95" : "h-9 lg:h-11"}
-  `}
-  loading="lazy"
-  decoding="async"
-/>
-
+          <ol className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+            {PASOS.map((paso, i) => (
+              <li
+                key={paso.titulo}
+                className="fade-up rounded-3xl border border-vita-line bg-white px-6 py-8"
+                style={{ transitionDelay: `${i * 80}ms` }}
+              >
+                <span
+                  className={`mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-full text-lg font-extrabold text-white ${
+                    i === 1 ? "bg-vita-tealDark" : "bg-vita-blueDark"
+                  }`}
+                >
+                  {i + 1}
+                </span>
+                <h3 className="mb-2 text-lg font-bold text-vita-navy">
+                  {paso.titulo}
+                </h3>
+                <p className="text-[15px] leading-relaxed text-vita-ink">
+                  {paso.texto}
+                </p>
+              </li>
+            ))}
+          </ol>
         </div>
-      ))}
-    </div>
-  </div>
-
-</section>
-
-
+      </section>
 
       {/* FOOTER */}
-<footer className="w-full bg-gray-50 border-t border-slate-200/70">
-  <div className="max-w-7xl mx-auto px-6 pt-4 pb-24 sm:pb-6 text-center text-[13px] text-gray-500 space-y-3">
+      <footer className="w-full bg-vita-navy">
+        <div className="mx-auto max-w-7xl space-y-4 px-6 pb-24 pt-10 text-center text-sm leading-relaxed text-slate-300 sm:pb-8">
 
-    {/* Texto legal */}
-    <p className="max-w-3xl mx-auto">
-      Los datos enviados a través de este sitio serán utilizados únicamente para fines de contacto y asesoría,
-      conforme a la normativa vigente.
-    </p>
+          {/* Texto legal */}
+          <p className="mx-auto max-w-3xl">
+            Los datos enviados a través de este sitio serán utilizados únicamente para fines de contacto y asesoría,
+            conforme a la normativa vigente.
+          </p>
 
-    {/* Contacto */}
-    <div className="flex flex-wrap justify-center items-center gap-2 text-gray-600 font-medium">
-      <span>Contacto:</span>
+          {/* Contacto */}
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-medium">
+            <a
+              href="mailto:asesoria@vitaplan.cl"
+              className="text-white underline-offset-4 hover:underline"
+            >
+              asesoria@vitaplan.cl
+            </a>
 
-      <a
-        href="mailto:asesoria@vitaplan.cl"
-        className="text-sky-600 hover:underline"
-      >
-        asesoria@vitaplan.cl
-      </a>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-white underline-offset-4 hover:underline"
+            >
+              <IconWhatsApp className="inline-block h-4 w-4 text-sky-300" />
+              WhatsApp Business <span className="hidden sm:inline">(Atención directa)</span>
+            </a>
 
-      <span className="text-gray-400">|</span>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-white underline-offset-4 hover:underline"
+            >
+              <IconInstagram className="inline-block h-4 w-4 text-sky-300" />
+              Instagram <span className="hidden sm:inline">@vitaplan.cl</span>
+            </a>
+          </div>
 
-      <a
-        href={WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-1 text-sky-600 hover:underline"
-      >
-        <IconWhatsApp />
-        WhatsApp Business <span className="hidden sm:inline">(Atención directa)</span>
-      </a>
-
-      <span className="text-gray-400">|</span>
-
-      <a
-        href={INSTAGRAM_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-1 text-sky-600 hover:underline"
-      >
-        <IconInstagram />
-        Instagram <span className="hidden sm:inline">@vitaplan.cl</span>
-      </a>
-
-    </div>
-
-    {/* Derechos reservados */}
-    <p className="text-xs text-gray-400">
-      © {new Date().getFullYear()} VitaPlan. Todos los derechos reservados.
-    </p>
-
-  </div>
-</footer>
+          {/* Derechos reservados */}
+          <p className="text-xs text-slate-400">
+            © {new Date().getFullYear()} VitaPlan. Todos los derechos reservados.
+          </p>
+        </div>
+      </footer>
 
       {/* BOTÓN FLOTANTE: ATENCIÓN DIRECTA */}
       <a
@@ -319,13 +367,13 @@ export default function App() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Hablar con un asesor de VitaPlan por WhatsApp"
-        className="whatsapp-float fixed right-4 sm:right-6 z-50 flex items-center gap-2.5 rounded-full bg-[#25D366] text-white pl-3.5 pr-5 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.25)] hover:bg-[#1ebe5b] hover:scale-105 active:scale-95 transition"
+        className="whatsapp-float fixed right-4 z-50 flex items-center gap-2.5 rounded-full bg-[#16A34A] py-3 pl-3.5 pr-5 text-white shadow-[0_10px_30px_rgba(0,0,0,0.25)] transition hover:scale-105 hover:bg-[#15803D] active:scale-95 sm:right-6"
         style={{ bottom: "calc(env(safe-area-inset-bottom) + 16px)" }}
       >
-        <IconWhatsApp className="w-6 h-6 text-white" />
-        <span className="flex flex-col leading-tight text-left">
-          <span className="text-sm font-semibold">Háblanos</span>
-          <span className="text-[11px] opacity-90">Atención directa</span>
+        <IconWhatsApp className="h-6 w-6 text-white" />
+        <span className="flex flex-col text-left leading-tight">
+          <span className="text-sm font-bold">Háblanos</span>
+          <span className="text-[11px]">Atención directa</span>
         </span>
       </a>
 
