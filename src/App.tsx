@@ -23,6 +23,13 @@ const isapres = [
 ];
 
 /* =========================
+   ENLACES DE CONTACTO
+========================= */
+const WHATSAPP_URL =
+  "https://wa.me/56944025097?text=Hola%20VitaPlan,%20quisiera%20recibir%20asesor%C3%ADa%20sobre%20planes%20de%20Isapre.";
+const INSTAGRAM_URL = "https://www.instagram.com/vitaplan.cl/";
+
+/* =========================
    ICONOS PREMIUM (INLINE)
 ========================= */
 const IconCheck = () => (
@@ -53,14 +60,30 @@ const IconShield = () => (
   </svg>
 );
 
-const IconWhatsApp = () => (
+const IconWhatsApp = ({
+  className = "w-4 h-4 inline-block mr-1 text-sky-600",
+}: {
+  className?: string;
+}) => (
   <svg
-    className="w-4 h-4 inline-block mr-1 text-sky-600"
+    className={className}
     viewBox="0 0 24 24"
     fill="currentColor"
     aria-hidden="true"
   >
     <path d="M20.52 3.48A11.94 11.94 0 0 0 12.06 0C5.47 0 .15 5.32.15 11.9c0 2.1.55 4.15 1.6 5.97L0 24l6.28-1.64a11.9 11.9 0 0 0 5.78 1.47h.01c6.59 0 11.92-5.32 11.92-11.9 0-3.18-1.24-6.16-3.47-8.45zM12.06 21.4c-1.84 0-3.64-.5-5.21-1.45l-.37-.22-3.73.98.99-3.64-.24-.38a9.45 9.45 0 0 1-1.47-5.07c0-5.22 4.25-9.46 9.48-9.46a9.42 9.42 0 0 1 6.69 2.77 9.37 9.37 0 0 1 2.78 6.67c0 5.22-4.25 9.46-9.48 9.46zm5.19-7.1c-.28-.14-1.64-.8-1.89-.9-.25-.09-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.17-.43-2.23-1.37-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.32.43-.48.14-.16.18-.28.28-.46.09-.18.05-.35-.02-.49-.07-.14-.62-1.5-.85-2.06-.22-.53-.44-.46-.62-.47h-.53c-.18 0-.49.07-.74.35-.25.28-.97.95-.97 2.31 0 1.36 1 2.68 1.14 2.87.14.18 1.96 2.98 4.75 4.18.66.28 1.17.45 1.57.58.66.21 1.26.18 1.74.11.53-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.2-.53-.35z" />
+  </svg>
+);
+
+const IconInstagram = ({
+  className = "w-4 h-4 inline-block mr-1 text-sky-600",
+}: {
+  className?: string;
+}) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.8" />
+    <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
+    <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" />
   </svg>
 );
 
@@ -188,8 +211,7 @@ export default function App() {
       </section>
 
 {/* ISAPRES */}
-<section className="w-full bg-white/70 backdrop-blur-sm border-t border-slate-200/60 -mt-12 + bg-white/60 + backdrop-blur-sm
-">
+<section className="w-full bg-white/70 backdrop-blur-sm border-t border-slate-200/60 -mt-12">
 
   {/* TEXTO CENTRADO */}
   <div className="max-w-7xl mx-auto px-6 pt-14">
@@ -238,7 +260,7 @@ export default function App() {
 
       {/* FOOTER */}
 <footer className="w-full bg-gray-50 border-t border-slate-200/70">
-  <div className="max-w-7xl mx-auto px-6 pt-4 pb-6 text-center text-[13px] text-gray-500 space-y-3">
+  <div className="max-w-7xl mx-auto px-6 pt-4 pb-24 sm:pb-6 text-center text-[13px] text-gray-500 space-y-3">
 
     {/* Texto legal */}
     <p className="max-w-3xl mx-auto">
@@ -259,15 +281,27 @@ export default function App() {
 
       <span className="text-gray-400">|</span>
 
- <a
-  href="https://wa.me/56944025097?text=Hola%20VitaPlan,%20quisiera%20recibir%20asesor%C3%ADa%20sobre%20planes%20de%20Isapre."
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-flex items-center gap-1 text-sky-600 hover:underline"
->
-  <IconWhatsApp />
-  WhatsApp Business <span className="hidden sm:inline">(Atención directa)</span>
-</a>
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1 text-sky-600 hover:underline"
+      >
+        <IconWhatsApp />
+        WhatsApp Business <span className="hidden sm:inline">(Atención directa)</span>
+      </a>
+
+      <span className="text-gray-400">|</span>
+
+      <a
+        href={INSTAGRAM_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1 text-sky-600 hover:underline"
+      >
+        <IconInstagram />
+        Instagram <span className="hidden sm:inline">@vitaplan.cl</span>
+      </a>
 
     </div>
 
@@ -278,6 +312,22 @@ export default function App() {
 
   </div>
 </footer>
+
+      {/* BOTÓN FLOTANTE: ATENCIÓN DIRECTA */}
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Hablar con un asesor de VitaPlan por WhatsApp"
+        className="whatsapp-float fixed right-4 sm:right-6 z-50 flex items-center gap-2.5 rounded-full bg-[#25D366] text-white pl-3.5 pr-5 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.25)] hover:bg-[#1ebe5b] hover:scale-105 active:scale-95 transition"
+        style={{ bottom: "calc(env(safe-area-inset-bottom) + 16px)" }}
+      >
+        <IconWhatsApp className="w-6 h-6 text-white" />
+        <span className="flex flex-col leading-tight text-left">
+          <span className="text-sm font-semibold">Háblanos</span>
+          <span className="text-[11px] opacity-90">Atención directa</span>
+        </span>
+      </a>
 
     </div>
   );
